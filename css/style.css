@@ -10,14 +10,14 @@ p {
 }
 
 h5 {
-    margin-block-start: 0;
-    margin-block-end: 0;
+    margin-block-start: 0.100em;
+    margin-block-end: 0.100em;
 }
 
 hr {
     border: 0;
-    margin: 10%;
-    height: 2px;
+    margin: 8%;
+    height: 1px;
     background-image: linear-gradient(to right, transparent, green, transparent);
 }
 
@@ -51,7 +51,7 @@ hr {
 
 .left {
     text-align: left;
-    margin-left: 10%;
+    margin-left: 7%;
 }
 
 input[type=text], input[type=password], input[type=email] {

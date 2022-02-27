@@ -14,10 +14,12 @@
             </div>
             <h1>Login</h1>
             <hr>
+            <h4>Digite email e senha para acessar o sistema.</h4>
             <div>
-                <form method="post" action="login.php">
-                    <input type="email" minlength="10" maxlength="256" placeholder="Digite seu e-mail" required="required" autofocus>
-                    <br>
+                <form method="post">
+                    <h5 class="left">Email:</h5>
+                    <input type="email" minlength="10" maxlength="256" placeholder="Email cadastrado" required="required" autofocus>
+                    <h5 class="left">Senha:</h5>
                     <input type="password" minlength="8" maxlength="20" placeholder="Senha" required="required">
                     <br>
                     <input type="submit" value="Entrar">
