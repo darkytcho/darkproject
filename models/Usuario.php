@@ -27,7 +27,11 @@ class Usuario {
     }
 
     public function setSenha($s) {
-        $this->senha = md5($s);
+        $this->senha = password_hash($s, PASSWORD_DEFAULT);
+    }
+
+    public function setSenhaLogin($s) {
+        $this->senha = $s;
     }
 
     public function getEmail() {
@@ -42,6 +46,7 @@ class Usuario {
 
 interface UsuarioDao {
     public function add(Usuario $u);
+    public function login(Usuario $u);
     public function findAll();
     public function findById($id);
     public function findByEmail($email);

@@ -4,7 +4,7 @@ require 'models/UsuarioDao.php';
 
 $usuarioDao = new UsuarioDaoMysql($pdo);
 
-$nome = filter_input(INPUT_POST, 'nome');
+$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
 $senha = filter_input(INPUT_POST, 'senha');
 $senha2 = filter_input(INPUT_POST, 'senha2');
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
