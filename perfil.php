@@ -24,12 +24,26 @@ if (isset($_SESSION['id'])) {
 <body>
     <div class="container">
         <div class="bigBox">
-            <h2>Seja bem vindo
-                <?php echo $usuarioLogado->getNome()?>
-            </h2>
             <div class="menu">
                 <?php include "menu.php" ?>
             </div>
+            <p>Nome:
+                <?php echo $usuarioLogado->getNome() ?>
+            </p>
+            <p>Email:
+                <?php echo $usuarioLogado->getEmail() ?>
+            </p>
+            <p>Data de Nascimento:
+            <?php echo date('d/m/Y', strtotime($usuarioLogado->getNascimento())) ?></p>
+
+            <p>Telefone:
+            <?php echo $usuarioLogado->getTelefone() ?></p>
+
+            <p>Data de Cadastro:
+            <?php echo $usuarioLogado->getRegistro() ?></p>
+            <a href="editarPerfil.php">
+                <buttom>Editar Perfil</buttom>
+            </a>
         </div>
     </div>
 </body>

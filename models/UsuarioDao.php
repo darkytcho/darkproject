@@ -8,11 +8,24 @@ class UsuarioDaoMysql implements UsuarioDao {
         $this->pdo = $engine;
     }
 
+    public function generateUser ($array) {
+        $user = new Usuario();
+        $user->setId($array['id'] ?? '');
+        $user->setNome($array['nome'] ?? '');
+        $user->setEmail($array['email'] ?? '');
+        $user->setNascimento($array['nascimento'] ?? '');
+        $user->setTelefone($array['telefone'] ?? '');
+        $user->setRegistro($array['registro'] ?? '');
+        return $user;
+    }
+
     public function add(Usuario $u) {
-        $sql = $this->pdo->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)");
+        $sql = $this->pdo->prepare("INSERT INTO usuarios (nome, email, senha, telefone, nascimento) VALUES (:nome, :email, :senha, :telefone, :nascimento)");
         $sql->bindValue(':nome', $u->getNome());
         $sql->bindValue(':email', $u->getEmail());
         $sql->bindValue(':senha', $u->getSenha());
+        $sql->bindValue(':telefone', $u->getTelefone());
+        $sql->bindValue(':nascimento', $u->getNascimento());
         $sql->execute();
     }
     
@@ -25,13 +38,9 @@ class UsuarioDaoMysql implements UsuarioDao {
             $dados = $sql->fetch();
             $pass = $u->getSenha();
             $hash = $dados['senha'];
-            print_r($dados);
             
             if(password_verify($pass, $hash)) {
-            $u = new Usuario();
-            $u->setId($dados['id']);
-            $u->setNome($dados['nome']);
-            $u->setEmail($dados['email']);
+            $u = $this->generateUser($dados);
 
             return $u;}
         } else {
@@ -40,7 +49,6 @@ class UsuarioDaoMysql implements UsuarioDao {
     }
 
     public function findAll() {
-
     }
 
     public function findById($id) {
@@ -50,12 +58,7 @@ class UsuarioDaoMysql implements UsuarioDao {
         
         if ($sql->rowCount() > 0) {
             $dados = $sql->fetch();
-
-            $u = new Usuario();
-            $u->setId($dados['id']);
-            $u->setNome($dados['nome']);
-            $u->setEmail($dados['email']);
-
+            $u = $this->generateUser($dados);
             return $u;
         } else {
             return false;
@@ -70,21 +73,26 @@ class UsuarioDaoMysql implements UsuarioDao {
 
         if ($sql->rowCount() > 0) {
             $dados = $sql->fetch();
-
-            $u = new Usuario();
-            $u->setId($dados['id']);
-            $u->setNome($dados['nome']);
-            $u->setEmail($dados['email']);
-
+            $u = $this->generateUser($dados);
             return $u;
         } else {
             return false;
         }
 
     }
-    public function update(Usuario $u) {
 
+    public function update(Usuario $u) {
+        
+        $sql = $this->pdo->prepare("UPDATE usuarios (nome, email, senha, telefone, nascimento) SET (:nome, :email, :senha, :telefone, :nascimento) WHERE id = :id");
+        $sql->bindValue(':nome', $u->getNome());
+        $sql->bindValue(':email', $u->getEmail());
+        $sql->bindValue(':senha', $u->getSenha());
+        $sql->bindValue(':telefone', $u->getTelefone());
+        $sql->bindValue(':nascimento', $u->getNascimento());
+        $sql->bindValue(':id', $u->getId());
+        $sql->execute();
     }
+
     public function delete($id) {
 
     }

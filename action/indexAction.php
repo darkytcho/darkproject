@@ -1,6 +1,6 @@
 <?php
-require 'config.php';
-require 'models/UsuarioDao.php';
+require '../config.php';
+require '../models/UsuarioDao.php';
 
 $usuarioDao = new UsuarioDaoMysql($pdo);
 
@@ -16,7 +16,7 @@ if ($email && $senha) {
 
     if ($login) {
         $_SESSION['id'] = $login->getId();
-        header('Location: logado.php');
+        header('Location: ../logado.php');
     } 
 
 }

@@ -5,6 +5,9 @@ class Usuario {
     private $nome;
     private $senha;
     private $email;
+    private $nascimento;
+    private $telefone;
+    private $registro;
 
     public function getId() {
         return $this->id;
@@ -40,8 +43,33 @@ class Usuario {
 
     public function setEmail($e) {
         $this->email = strtolower(trim($e));
-
     }
+
+    public function getNascimento() {
+        return $this->nascimento;
+    }
+
+    public function setNascimento($n) {
+        $this->nascimento = $n;
+    }
+
+    public function getTelefone(){
+        return $this->telefone;
+    }
+
+    public function setTelefone($t) {
+        $this->telefone = $t;
+    }
+
+    public function getRegistro() {
+        return $this->registro; 
+    }
+
+    public function setRegistro($r) {
+        $r = new DateTime($r);
+        $this->registro = $r->format('d/m/Y H:i:s');
+    }
+    
 }
 
 interface UsuarioDao {

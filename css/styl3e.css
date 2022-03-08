@@ -9,18 +9,6 @@ p {
     font-size: 0.900em;
 }
 
-h5 {
-    margin-block-start: 0.100em;
-    margin-block-end: 0.100em;
-}
-
-hr {
-    border: 0;
-    margin: 8%;
-    height: 1px;
-    background-image: linear-gradient(to right, transparent, green, transparent);
-}
-
 .container {
     width: 100%;
     height: 100%;
@@ -28,36 +16,33 @@ hr {
     align-items: center;
     justify-content: center;
     position: fixed;
-}
-
-.box {
-    width: 20%;
-    min-width: 400px;
-    height: 60%;
-    min-height: 600px;
-    text-align: center;
     border: solid 1px green;
 }
 
-.sideLogin {
-    width: 100%;
-    height: 2%;
-    background-color: green;
+.bigBox {
+    text-align: center;
+    width: 70%;
+    min-width: 800px;
+    height: 70%;
+    min-height: 600px;
 }
 
-.login {
-    text-align: left;
+.box1 {
+    display: inline-block;
+    width: 49%;
+    height: 70%;
 }
 
-.left {
-    text-align: left;
-    margin-left: 7%;
+.box2 {
+    display: inline-block;
+    width: 49%;
+    height: 70%;
 }
 
-input[type=text], input[type=password], input[type=email] {
-    width: 85%;
+input[type=text], input[type=password], input[type=email], input[type=tel], input[type=date] {
+    width: 65%;
     height: 2em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     font-size: 1em;
     text-align: center;
     border: 0px;
@@ -70,15 +55,19 @@ input[type=email] {
     text-transform: lowercase;
 }
 
+input[type=date]::-webkit-inner-spin-button {
+    appearance: none;
+}
+
 input[type=email]::placeholder {
     text-transform: none;
 }
 
 input[type=submit], button {
-    width: 60%;
+    width: 20%;
     height: 2em;
     font-size: 16px;
-    margin: 5%;
+    margin: 1%;
     background-color: rgba(0, 128, 0, 0.8);
     color: rgb(255, 255, 255);
     border: none;
