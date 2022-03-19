@@ -7,7 +7,7 @@ $usuarioDao = new UsuarioDaoMysql($pdo);
 if (isset($_SESSION['id'])) {
         $usuarioLogado = $usuarioDao->findById($_SESSION['id']);
 } else {
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
 
 ?>
@@ -22,32 +22,26 @@ if (isset($_SESSION['id'])) {
 </head>
 
 <body>
-    <div class="container">
-        <div class="bigBox">
-            <div class="menu">
-                <?php include "menu.php" ?>
-            </div>
-            <form method="post" action="editarPerfilAction">
-                <p>Nome: </p>
-                <input type="text" value="<?php echo $usuarioLogado->getNome() ?>">
-                <p>Email:</p>
-                <input type="email" value="<?php echo $usuarioLogado->getEmail() ?>"><br>
+    <?php include "menu.php" ?>
+    <form method="post" action="action/editarPerfilAction.php">
+        <label for="nome">Nome:</label>
+        <input name="nome" type="text" minlength="5" maxlength="70" placeholder="Nome"
+            value="<?php echo $usuarioLogado->getNome() ?>">
+        <label for="email">Email:</label>
+        <input name="email" type="email" minlength="10" maxlength="256"
+            value="<?php echo $usuarioLogado->getEmail() ?>">
+        <label for="telefone">Telefone:</label>
+        <input name="telefone" type="tel" minlength="10" maxlength="13" placeholder="Digite o telefone"
+            value="<?php echo $usuarioLogado->getTelefone() ?>">
+        <label for="nascimento">Data de Nascimento:</label>
+        <input name="nascimento" type="date" value="<?php echo $usuarioLogado->getNascimento() ?>">
+        <label for="senha">Alteração de Senha:</label>
 
-                <label for="telefone">Telefone:</label><br>
-                <input name="telefone" type="tel" minlength="10" maxlength="13" placeholder="Digite o telefone" value="<?php echo $usuarioLogado->getTelefone() ?>"><br>
-                <p>Data de Nascimento:</p>
-                <input type="date" value="<?php echo $usuarioLogado->getNascimento() ?>">
-                <p>Alteração de Senha:</p>
+        <input name="senha" type="password" placeholder="Senha Atual">
+        <input name="senha1" type="password" placeholder="Nova Senha">
+        <input name="senha2" type="password" placeholder="Repita a Nova Senha">
 
-                <input type="password" placeholder="Senha Atual">
-                <input type="password" placeholder="Nova Senha">
-                <input type="password" placeholder="Repita a Nova Senha"><br>
-
-
-                <input type="submit">
-
-        </div>
-    </div>
+        <input type="submit" value="Atualizar">
 </body>
 
 </html>

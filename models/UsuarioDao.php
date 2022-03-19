@@ -16,6 +16,7 @@ class UsuarioDaoMysql implements UsuarioDao {
         $user->setNascimento($array['nascimento'] ?? '');
         $user->setTelefone($array['telefone'] ?? '');
         $user->setRegistro($array['registro'] ?? '');
+        $user->setSenha($array['senha'] ?? '');
         return $user;
     }
 
@@ -49,6 +50,24 @@ class UsuarioDaoMysql implements UsuarioDao {
     }
 
     public function findAll() {
+        $array = [];
+
+        $sql = $this->pdo->query('SELECT * FROM usuarios');
+
+        if ($sql->rowCount() > 0) {
+
+        $dados = $sql->fetchAll();
+
+            foreach($dados as $item) {
+                $u = $this->generateUser($item);
+                $array[] = $u;
+            }
+
+            
+
+        }
+        
+        return $array;
     }
 
     public function findById($id) {
@@ -83,7 +102,7 @@ class UsuarioDaoMysql implements UsuarioDao {
 
     public function update(Usuario $u) {
         
-        $sql = $this->pdo->prepare("UPDATE usuarios (nome, email, senha, telefone, nascimento) SET (:nome, :email, :senha, :telefone, :nascimento) WHERE id = :id");
+        $sql = $this->pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, telefone = :telefone, nascimento = :nascimento WHERE id = :id");
         $sql->bindValue(':nome', $u->getNome());
         $sql->bindValue(':email', $u->getEmail());
         $sql->bindValue(':senha', $u->getSenha());
@@ -94,6 +113,10 @@ class UsuarioDaoMysql implements UsuarioDao {
     }
 
     public function delete($id) {
+        
+        $sql = $this->pdo->prepare("DELETE FROM usuarios WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
 
     }
 }

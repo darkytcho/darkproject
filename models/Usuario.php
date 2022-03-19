@@ -8,6 +8,7 @@ class Usuario {
     private $nascimento;
     private $telefone;
     private $registro;
+    private $admin;
 
     public function getId() {
         return $this->id;
@@ -70,9 +71,17 @@ class Usuario {
         $this->registro = $r->format('d/m/Y H:i:s');
     }
     
+    public function setAdmin() {
+
+    }
+
+    public function getAdmin() {
+        
+    }
 }
 
 interface UsuarioDao {
+    public function generateUser($array);
     public function add(Usuario $u);
     public function login(Usuario $u);
     public function findAll();

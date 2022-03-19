@@ -22,16 +22,10 @@ if (isset($_SESSION['id'])) {
 </head>
 
 <body>
-    <div class="container">
-        <div class="bigBox">
-            <h2>Seja bem vindo
-                <?php echo $usuarioLogado->getNome()?>
-            </h2>
-            <div class="menu">
-                <?php include "menu.php" ?>
-            </div>
-        </div>
-    </div>
+    <h2>Seja bem vindo
+        <?php echo $usuarioLogado->getNome()?>
+    </h2>
+    <?php include "menu.php" ?>
 </body>
 
 </html>

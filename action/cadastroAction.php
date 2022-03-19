@@ -1,6 +1,6 @@
 <?php
-require 'config.php';
-require 'models/UsuarioDao.php';
+require '../config.php';
+require '../models/UsuarioDao.php';
 
 $usuarioDao = new UsuarioDaoMysql($pdo);
 
@@ -12,7 +12,7 @@ $telefone = filter_input(INPUT_POST, 'telefone');
 $nascimento = filter_input(INPUT_POST, 'nascimento');
 
 
-if ($senha === $senha2 && $email) {
+if ($senha === $senha2 && $email && $telefone && $nome && $nascimento) {
     if ($usuarioDao->findByEmail($email) === false) {
         $novoUsuario = new Usuario();
         $novoUsuario->setNome($nome);
@@ -23,13 +23,13 @@ if ($senha === $senha2 && $email) {
 
         $usuarioDao->add( $novoUsuario );
 
-        header('Location: index.php');
+        header('Location: ../index.php');
 
     } else {
-        header('Location: cadastro.php');
+        header('Location: ../cadastro.php');
     }
 } else {
-    header('Location: cadastro.php');
+    header('Location: ../cadastro.php');
 }
 
 ?>

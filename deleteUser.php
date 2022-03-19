@@ -10,6 +10,8 @@ if (isset($_SESSION['id'])) {
     header('Location: index.php');
 }
 
+$usuarioDelete = filter_input(INPUT_POST, 'idDel');
+$usuarioDelete = $usuarioDao->findById($usuarioDelete);
 ?>
 
 <!DOCTYPE html>
@@ -23,24 +25,16 @@ if (isset($_SESSION['id'])) {
 
 <body>
     <?php include "menu.php" ?>
-    <p>Nome:
-        <?php echo $usuarioLogado->getNome() ?>
+
+    <p> Tem certeza que deseja excluir o usuario
+        <?= $usuarioDelete->getNome() ?> ?
+        O processo é irreversível.
     </p>
-    <p>Email:
-        <?php echo $usuarioLogado->getEmail() ?>
-    </p>
-    <p>Data de Nascimento:
-        <?php echo date('d/m/Y', strtotime($usuarioLogado->getNascimento())) ?>
-    </p>
-    <p>Telefone:
-        <?php echo $usuarioLogado->getTelefone() ?>
-    </p>
-    <p>Data de Cadastro:
-        <?php echo $usuarioLogado->getRegistro() ?>
-    </p>
-    <a href="editarPerfil.php">
-        <buttom>Editar Perfil</buttom>
-    </a>
+
+    <form action="action/excluirUserAction.php" method="post">
+        <input type="hidden" name="idDel" value="<?=$usuarioDelete->getId() ?>">
+        <input type="submit" value="Confirmar">
+    </form>
 
 </body>
 
