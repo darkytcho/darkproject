@@ -47,11 +47,14 @@ class Usuario {
     }
 
     public function getNascimento() {
+        $r = new DateTime($this->nascimento);
+        $this->nascimento = $r->format('d/m/Y');
         return $this->nascimento;
+
     }
 
     public function setNascimento($n) {
-        $this->nascimento = $n;
+        $this->nascimento = $n; 
     }
 
     public function getTelefone(){
@@ -63,32 +66,31 @@ class Usuario {
     }
 
     public function getRegistro() {
-        return $this->registro; 
+        $r = new DateTime($this->registro);
+        $this->registro = $r->format('d/m/Y H:i:s');
+        return $this->registro;
     }
 
     public function setRegistro($r) {
-        $r = new DateTime($r);
-        $this->registro = $r->format('d/m/Y H:i:s');
+        $this->registro = $r;
     }
     
-    public function setAdmin() {
-
+    public function setAdmin($a) {
+        $this->admin = (boolean) $a;
     }
 
     public function getAdmin() {
-        
+        return $this->admin;
     }
 }
 
 interface UsuarioDao {
     public function generateUser($array);
     public function add(Usuario $u);
-    public function login(Usuario $u);
-    public function findAll();
+    public function login($pass, $email);
+    public function findAll($id);
     public function findById($id);
     public function findByEmail($email);
     public function update(Usuario $u);
     public function delete($id);
 }
-
-?>

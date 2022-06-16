@@ -17,27 +17,31 @@ class UsuarioDaoMysql implements UsuarioDao {
         $user->setTelefone($array['telefone'] ?? '');
         $user->setRegistro($array['registro'] ?? '');
         $user->setSenha($array['senha'] ?? '');
+        $user->setAdmin($array['admin'] ?? '');
         return $user;
     }
 
     public function add(Usuario $u) {
+        $date = $u->getNascimento();
+        $date = DateTime::createFromFormat('d/m/Y', $date);
+        $date = $date->format('Y-m-d');
+
         $sql = $this->pdo->prepare("INSERT INTO usuarios (nome, email, senha, telefone, nascimento) VALUES (:nome, :email, :senha, :telefone, :nascimento)");
         $sql->bindValue(':nome', $u->getNome());
         $sql->bindValue(':email', $u->getEmail());
         $sql->bindValue(':senha', $u->getSenha());
         $sql->bindValue(':telefone', $u->getTelefone());
-        $sql->bindValue(':nascimento', $u->getNascimento());
+        $sql->bindValue(':nascimento', $date);
         $sql->execute();
     }
     
-    public function login(Usuario $u) {
+    public function login($pass, $email) {
         $sql = $this->pdo->prepare('SELECT * FROM usuarios WHERE email = :email');
-        $sql->bindValue(':email', $u->getEmail());
+        $sql->bindValue(':email', $email);
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
             $dados = $sql->fetch();
-            $pass = $u->getSenha();
             $hash = $dados['senha'];
             
             if(password_verify($pass, $hash)) {
@@ -49,7 +53,7 @@ class UsuarioDaoMysql implements UsuarioDao {
         }
     }
 
-    public function findAll() {
+    public function findAll($id) {
         $array = [];
 
         $sql = $this->pdo->query('SELECT * FROM usuarios');
@@ -59,8 +63,11 @@ class UsuarioDaoMysql implements UsuarioDao {
         $dados = $sql->fetchAll();
 
             foreach($dados as $item) {
+              
                 $u = $this->generateUser($item);
+                if ($id != $u->getId()) {
                 $array[] = $u;
+            }
             }
 
             
@@ -113,11 +120,12 @@ class UsuarioDaoMysql implements UsuarioDao {
     }
 
     public function delete($id) {
-        
+       // $verify = $this->findById($id)
+
+        if($_SESSION['id'] != $id && $this->findById($_SESSION['id'])->getAdmin() === TRUE) {
         $sql = $this->pdo->prepare("DELETE FROM usuarios WHERE id = :id");
         $sql->bindValue(':id', $id);
-        $sql->execute();
-
+        $sql->execute(); }
     }
 }
 

@@ -5,7 +5,7 @@ require 'models/UsuarioDao.php';
 $usuarioDao = new UsuarioDaoMysql($pdo);
 
 if (isset($_SESSION['id'])) {
-        $usuarioLogado = $usuarioDao->findById($_SESSION['id']);
+    $usuarioLogado = $usuarioDao->findById($_SESSION['id']);
 } else {
     header('Location: index.php');
 }
@@ -24,18 +24,13 @@ $usuarioDelete = $usuarioDao->findById($usuarioDelete);
 </head>
 
 <body>
-    <?php include "menu.php" ?>
-
-    <p> Tem certeza que deseja excluir o usuario
-        <?= $usuarioDelete->getNome() ?> ?
-        O processo é irreversível.
-    </p>
-
+    <?php include "menu.php"; ?>
+    <p> Tem certeza que deseja excluir o usuario <?= $usuarioDelete->getNome() ?> ?</p>
+    <p>O processo é irreversível.</p>
     <form action="action/excluirUserAction.php" method="post">
-        <input type="hidden" name="idDel" value="<?=$usuarioDelete->getId() ?>">
+        <input type="hidden" name="idDel" value="<?=$usuarioDelete->getId()?>">
         <input type="submit" value="Confirmar">
     </form>
-
 </body>
 
 </html>

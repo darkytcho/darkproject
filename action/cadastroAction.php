@@ -21,7 +21,8 @@ if ($senha === $senha2 && $email && $telefone && $nome && $nascimento) {
         $novoUsuario->setTelefone($telefone);
         $novoUsuario->setNascimento($nascimento);
 
-        $usuarioDao->add( $novoUsuario );
+        $usuarioDao->add($novoUsuario);
+        
 
         header('Location: ../index.php');
 

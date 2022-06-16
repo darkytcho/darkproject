@@ -6,6 +6,8 @@ $usuarioDao = new UsuarioDaoMysql($pdo);
 
 if (isset($_SESSION['id'])) {
         $usuarioLogado = $usuarioDao->findById($_SESSION['id']);
+        
+print_r($_SESSION);
 } else {
     header('Location: index.php');
 }

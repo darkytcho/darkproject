@@ -28,6 +28,4 @@ $nascimento = filter_input(INPUT_POST, 'nascimento');
         $usuarioDao->update( $updateUser );
 
         header ('Location: ../editarPerfil.php')
-
-
 ?>
